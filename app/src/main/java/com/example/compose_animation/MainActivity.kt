@@ -26,7 +26,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -35,33 +37,45 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import com.example.compose_animation.ui.theme.Compose_animationTheme
 
 class MainActivity : ComponentActivity() {
-    @OptIn(ExperimentalAnimationApi::class)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             Compose_animationTheme {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ){
-                    var isVisible by remember {
-                        mutableStateOf(false)
-                    }
-                    var isRound by remember {
-                        mutableStateOf(false)
-                    }
-                    Button(onClick = {
-                        isVisible = !isVisible
-                        isRound = !isRound
-                    }) {
-                        Text(text = "Toggle")
-                    }
 
-                    // fades in and out the box based on state change
+            }
+        }
+    }
+
+
+    @OptIn(ExperimentalAnimationApi::class)
+    @Composable
+    fun TestAnimations(){
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ){
+            var isVisible by remember {
+                mutableStateOf(false)
+            }
+            var isRound by remember {
+                mutableStateOf(false)
+            }
+            Button(onClick = {
+                isVisible = !isVisible
+                isRound = !isRound
+            }) {
+                Text(text = "Toggle")
+            }
+
+            // fades in and out the box based on state change
 //                    AnimatedVisibility(
 //                        visible = isVisible,
 //                        enter = slideInHorizontally() + fadeIn(),
@@ -73,7 +87,7 @@ class MainActivity : ComponentActivity() {
 //                        Box(modifier = Modifier.background(Color.Blue))
 //                    }
 
-                    // switches between square and cirlce based on isRound
+            // switches between square and cirlce based on isRound
 //                    val borderRadius by animateIntAsState(
 //                        targetValue = if(isRound) 100 else 0,
 //                        animationSpec = tween(
@@ -87,7 +101,7 @@ class MainActivity : ComponentActivity() {
 //                            .background(Color.Cyan)
 //                    )
 
-                    // infinite animation
+            // infinite animation
 //                    val transition = rememberInfiniteTransition()
 //                    val color by transition.animateColor(
 //                        initialValue = Color.Red,
@@ -105,41 +119,39 @@ class MainActivity : ComponentActivity() {
 //                            .background(color)
 //                    )
 
-                    // Animated Content
-                    AnimatedContent(
-                        targetState = isVisible,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .weight(1f),
-                        content = {isVisible ->
-                            if (isVisible){
-                                Box(
-                                    modifier = Modifier
-                                        .size(200.dp)
-                                        .background(Color.Red)
-                                )
-                            }else{
-                                Box(
-                                    modifier = Modifier
-                                        .size(200.dp)
-                                        .background(Color.Green)
-                                )
-                            }
-                        },
-                        transitionSpec = {
-                            slideInHorizontally(
-                                initialOffsetX = {
-                                    -it
-                                }
-                            ) with slideOutHorizontally(
-                                targetOffsetX = {
-                                    it
-                                }
-                            )
+            // Animated Content
+            AnimatedContent(
+                targetState = isVisible,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
+                content = {isVisible ->
+                    if (isVisible){
+                        Box(
+                            modifier = Modifier
+                                .size(200.dp)
+                                .background(Color.Red)
+                        )
+                    }else{
+                        Box(
+                            modifier = Modifier
+                                .size(200.dp)
+                                .background(Color.Green)
+                        )
+                    }
+                },
+                transitionSpec = {
+                    slideInHorizontally(
+                        initialOffsetX = {
+                            -it
+                        }
+                    ) with slideOutHorizontally(
+                        targetOffsetX = {
+                            it
                         }
                     )
                 }
-            }
+            )
         }
     }
 }
