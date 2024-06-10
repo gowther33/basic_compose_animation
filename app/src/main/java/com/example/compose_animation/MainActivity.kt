@@ -41,15 +41,21 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.compose_animation.ui.theme.Compose_animationTheme
 
 class MainActivity : ComponentActivity() {
+
+    private lateinit var navController: NavHostController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             Compose_animationTheme {
                 HomeScreen()
+                navController = rememberNavController()
+                SetupNavGraph(navController = navController)
             }
         }
     }

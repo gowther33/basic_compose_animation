@@ -1,19 +1,21 @@
 package com.example.compose_animation
 
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.rememberInfiniteTransition
-import androidx.compose.animation.core.tween
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,9 +32,22 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 
 
 @Composable
+fun HomeScreen(
+    navHostController: NavHostController
+){
+    var txt by remember {
+        mutableStateOf("")
+    }
+    var date = navHostController.currentBackStackEntry?.savedStateHandle?.get<String>("date")
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+        modifier = Modifier.fillMaxSize()
 fun HomeScreen(){
     val brush = Brush.linearGradient(
         listOf(
@@ -54,18 +69,18 @@ fun HomeScreen(){
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ){
-        Image(
-            painter = painterResource(id = R.drawable.random1),
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .drawBehind {
-                    rotate(rotationTransition.value) {
-                        drawCircle(brush = brush, style = Stroke(50F))
-                    }
+        TextField(
+            value = txt,
+            placeholder = {
+                if (date!=null){
+                    Text(date)
+                }else{
+                    Text("Type here...")
                 }
-                .size(200.dp)
-                .clip(CircleShape)
+            },
+            onValueChange = {
+                txt = it
+            }
         )
         Text(
             text = "Home Screen",
@@ -74,11 +89,22 @@ fun HomeScreen(){
             fontWeight = FontWeight.Bold,
             fontFamily = FontFamily.SansSerif
         )
+        Button(
+            onClick = {
+                navHostController.navigate(
+                    route = "${Screen.Detail.route}/$txt"
+                )
+            },
+            ) {
+            Text(text = "Next")
+        }
     }
 }
 
 @Composable
 @Preview(showBackground = true)
 fun  HomePreview() {
-    HomeScreen()
+    HomeScreen(
+        rememberNavController()
+    )
 }
