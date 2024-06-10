@@ -49,7 +49,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             Compose_animationTheme {
-
+                HomeScreen()
             }
         }
     }
