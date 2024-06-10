@@ -53,8 +53,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             Compose_animationTheme {
-                HomeScreen()
                 navController = rememberNavController()
+                HomeScreen(navHostController = navController)
                 SetupNavGraph(navController = navController)
             }
         }

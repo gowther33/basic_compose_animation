@@ -1,5 +1,10 @@
 package com.example.compose_animation
 
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -44,11 +49,6 @@ fun HomeScreen(
         mutableStateOf("")
     }
     var date = navHostController.currentBackStackEntry?.savedStateHandle?.get<String>("date")
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-        modifier = Modifier.fillMaxSize()
-fun HomeScreen(){
     val brush = Brush.linearGradient(
         listOf(
             Color.Red,
