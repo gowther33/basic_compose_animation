@@ -1,8 +1,6 @@
 package com.example.compose_animation
 
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -25,6 +23,11 @@ fun SetupNavGraph(
         ){backStackEntry->
             val data = backStackEntry.arguments?.getString("data")
             DetailedScreen(navController, data!!)
+        }
+        composable(
+            route = Screen.Draw.route
+        ){
+            DrawScreen(navController)
         }
     }
 
