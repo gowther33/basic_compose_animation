@@ -5,6 +5,7 @@ import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -69,6 +70,19 @@ fun HomeScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ){
+        Image(
+            painter = painterResource(id = R.drawable.random1),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .drawBehind {
+                    rotate(rotationTransition.value){
+                        drawCircle(brush, style = Stroke(50F))
+                    }
+                }
+                .clip(CircleShape)
+                .size(200.dp)
+        )
         TextField(
             value = txt,
             placeholder = {
@@ -80,7 +94,9 @@ fun HomeScreen(
             },
             onValueChange = {
                 txt = it
-            }
+            },
+            modifier = Modifier
+                .padding(top = 24.dp)
         )
         Text(
             text = "Home Screen",
