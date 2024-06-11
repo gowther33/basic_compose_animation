@@ -1,6 +1,5 @@
 package com.example.compose_animation
 
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
@@ -39,13 +38,13 @@ fun DrawScreen(navController: NavHostController){
                     onDrawBehind {
 
                         val graphData = listOf(
-                            Pair(10F, 5F),
-                            Pair(20F, 14F),
-                            Pair(89F, 66F),
-                            Pair(100F, 70F),
-                            Pair(110F, 89F),
-                            Pair(200F, 170F),
-                            Pair(220F, 180F),
+                            Pair(30F, 60F),
+                            Pair(40F, 70F),
+                            Pair(50F, 96F),
+                            Pair(200F, 210F),
+                            Pair(310F, 300F),
+                            Pair(460F, 590F),
+                            Pair(510F, 590F),
                         )
                         val path = generatePath(graphData, size)
                         // Grid drawing logic
@@ -89,7 +88,7 @@ fun DrawScreen(navController: NavHostController){
 
 fun generatePath(list:List<Pair<Float,Float>>, size:Size):Path{
     val path = Path()
-
+    path.moveTo(0F,size.height)
     list.forEach {data ->
         val x = data.first
         val y = data.second
