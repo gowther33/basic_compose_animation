@@ -9,7 +9,10 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.foundation.layout.size
@@ -68,13 +71,22 @@ fun HomeScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ){
+        Text(
+            text = "Home Screen",
+            color = Color.Green,
+            fontSize = MaterialTheme.typography.headlineLarge.fontSize,
+            fontWeight = FontWeight.Bold,
+            fontFamily = FontFamily.SansSerif,
+            modifier = Modifier
+                .padding(bottom = 16.dp)
+        )
         Image(
             painter = painterResource(id = R.drawable.random1),
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .drawBehind {
-                    rotate(rotationTransition.value){
+                    rotate(rotationTransition.value) {
                         drawCircle(brush, style = Stroke(50F))
                     }
                 }
@@ -94,32 +106,33 @@ fun HomeScreen(
                 txt = it
             },
             modifier = Modifier
-                .padding(top = 24.dp)
+                .padding(top = 24.dp, bottom = 24.dp)
         )
-        Text(
-            text = "Home Screen",
-            color = Color.Green,
-            fontSize = MaterialTheme.typography.headlineLarge.fontSize,
-            fontWeight = FontWeight.Bold,
-            fontFamily = FontFamily.SansSerif
-        )
-        Button(
-            onClick = {
-                navHostController.navigate(
-                    route = "${Screen.Detail.route}/$txt"
-                )
-            },
-            ) {
-            Text(text = "Next")
-        }
-        Button(
-            onClick = {
-                navHostController.navigate(
-                    route = Screen.Draw.route
-                )
-            },
+        Row(
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .fillMaxWidth()
         ) {
-            Text(text = "Draw")
+            Button(
+                onClick = {
+                    navHostController.navigate(
+                        route = "${Screen.Detail.route}/$txt"
+                    )
+                },
+            ) {
+                Text(text = "Next")
+            }
+//            Spacer(modifier = Modifier.padding(16.dp))
+            Button(
+                onClick = {
+                    navHostController.navigate(
+                        route = Screen.Draw.route
+                    )
+                },
+            ) {
+                Text(text = "Draw")
+            }
         }
     }
 }

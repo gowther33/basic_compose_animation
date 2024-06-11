@@ -41,7 +41,9 @@ fun DetailedScreen(
             color = Color.Green,
             fontSize = MaterialTheme.typography.headlineLarge.fontSize,
             fontWeight = FontWeight.Bold,
-            fontFamily = FontFamily.SansSerif
+            fontFamily = FontFamily.SansSerif,
+            modifier = Modifier
+                .padding(bottom = 24.dp)
         )
         Text(
             text = data,
